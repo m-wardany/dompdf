@@ -115,6 +115,15 @@ Then run
 composer require dompdf/dompdf
 ```
 
+In CSS use JF Flat font to support arabic
+```html
+<style>
+body {
+    font-family: "JF Flat";
+}
+</style>
+```
+
 Make sure that the autoload file from Composer is loaded.
 
 ```php

@@ -88,8 +88,40 @@ DejaVu Sans, DejaVu Serif, and DejaVu Sans Mono.
 To install with [Composer](https://getcomposer.org/), simply require the
 latest version of this package.
 
+
+Add following to composer.json:
+```bash
+ "repositories": [
+     {
+         "type": "package",
+         "package": {
+             "name": "dompdf/dompdf",
+             "version": "v1.2.1-dev",
+             "source": {
+                 "url": "https://github.com/anasomushjo/dompdf",
+                 "type": "git",
+                 "reference": "master"
+             },
+             "autoload": {
+                 "classmap": [""]
+             }
+         }
+     }
+ ],
+```
+
+Then run
 ```bash
 composer require dompdf/dompdf
+```
+
+In CSS use JF Flat font to support arabic
+```html
+<style>
+body {
+    font-family: "JF Flat";
+}
+</style>
 ```
 
 Make sure that the autoload file from Composer is loaded.

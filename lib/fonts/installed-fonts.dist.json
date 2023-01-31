@@ -76,5 +76,11 @@
         "bold_italic": "DejaVuSerif-BoldItalic",
         "italic": "DejaVuSerif-Italic",
         "normal": "DejaVuSerif"
+    },
+    "jf flat": {
+        "bold": "JF-Flat-Bold",
+        "bold_italic": "JF-Flat-Bold",
+        "italic": "JF-Flat-Regular",
+        "normal": "JF-Flat-Regular"
     }
 }

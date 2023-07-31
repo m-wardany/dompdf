@@ -274,9 +274,9 @@ class ShorthandTest extends TestCase
             ["none", "none"],
             ["url($imagePath)", "url($imagePath)"],
             ["url( \"$imagePath\" )", "url( \"$imagePath\" )"],
-            ["rgba( 5, 5, 5, 1 )", "none", ["0%", "0%"], ["auto", "auto"], "repeat", "scroll", "rgba( 5, 5, 5, 1 )"],
+            ["rgba( 5, 5, 5, 1 )", "none", [0.0, 0.0], ["auto", "auto"], "repeat", "scroll", "rgba( 5, 5, 5, 1 )"],
             ["url(non-existing.png) top center no-repeat red fixed", "url(non-existing.png)", "top center", ["auto", "auto"], "no-repeat", "fixed", "red"],
-            ["url($imagePath) left/200pt 30% rgb( 123 16 69/0.8 )no-repeat", "url($imagePath)", "left", "200pt 30%", "no-repeat", "scroll", "rgb( 123 16 69/0.8 )"]
+            ["url($imagePath) LEFT/200PT 30% RGB( 123 16 69/0.8 )no-REPEAT", "url($imagePath)", "left", "200pt 30%", "no-repeat", "scroll", "rgb( 123 16 69/0.8 )"]
         ];
     }
 
@@ -286,7 +286,7 @@ class ShorthandTest extends TestCase
     public function testBackgroundShorthand(
         string $value,
         string $image,
-        $position = ["0%", "0%"],
+        $position = [0.0, 0.0],
         $size = ["auto", "auto"],
         string $repeat = "repeat",
         string $attachment = "scroll",
@@ -306,12 +306,13 @@ class ShorthandTest extends TestCase
     public function fontShorthandProvider(): array
     {
         return [
-            ["8.5mm Helvetica", "normal", "normal", "normal", "8.5mm", "normal", "helvetica"],
+            ["8.5mm Helvetica", "normal", "normal", 400, "8.5mm", "normal", "helvetica"],
             ["bold 16pt/10pt serif", "normal", "normal", "bold", "16pt", "10pt", "serif"],
             ["italic 700\n\t15.5pt / 2.1 'Courier', sans-serif", "italic", "normal", "700", "15.5pt", "2.1", "'courier',sans-serif"],
             ["700   normal  ITALIC    15.5PT /2.1 'Courier',sans-serif", "italic", "normal", "700", "15.5pt", "2.1", "'courier',sans-serif"],
-            ["normal normal small-caps 100.01% serif, sans-serif", "normal", "small-caps", "normal", "100.01%", "normal", "serif,sans-serif"],
-            ["normal normal normal xx-small/normal monospace", "normal", "normal", "normal", "xx-small", "normal", "monospace"]
+            ["normal normal small-caps 100.01% serif, sans-serif", "normal", "small-caps", 400, "100.01%", "normal", "serif,sans-serif"],
+            ["normal normal normal xx-small/normal monospace", "normal", "normal", 400, "xx-small", "normal", "monospace"],
+            ["1 0 serif", "normal", "normal", "1", "0", "normal", "serif"]
         ];
     }
 
@@ -322,7 +323,7 @@ class ShorthandTest extends TestCase
         string $value,
         string $fontStyle,
         string $fontVariant,
-        string $fontWeight,
+        $fontWeight,
         string $fontSize,
         string $lineHeight,
         string $fontFamily
@@ -345,10 +346,16 @@ class ShorthandTest extends TestCase
 
         return [
             ["none", "none", "none"],
+            ["NONE    None", "none", "none"],
             ["url($imagePath)", "disc", "url($imagePath)"],
+            ["url($imagePath) none", "none", "url($imagePath)"],
             ["url( '$imagePath' ) outside", "disc", "url( '$imagePath' )", "outside"],
             ["inside url($imagePath) square", "square", "url($imagePath)", "inside"],
-            ["inside decimal", "decimal", "none", "inside"]
+            ["inside decimal", "decimal", "none", "inside"],
+            ["OUTSIDE    LOWER-GREEK", "LOWER-GREEK", "none", "outside"],
+
+            // Invalid values
+            ["inside none none none", "disc"]
         ];
     }
 
